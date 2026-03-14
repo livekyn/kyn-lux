@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KYN Lux">
+  <meta name="theme-color" content="#080300">
+  <meta name="description" content="KYN Lux — Intelligent sun session tracking. Evidence-based Vitamin D, Nitric Oxide, and Serotonin targets personalized to your biology.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <title>KYN Lux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="brand-row">
+      <svg class="sun-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="11" fill="#F5A623"/>
+        <g stroke="#F5A623" stroke-width="2.2" stroke-linecap="round">
+          <line x1="24" y1="4"  x2="24" y2="9"/>  <line x1="24" y1="39" x2="24" y2="44"/>
+          <line x1="4"  y1="24" x2="9"  y2="24"/>  <line x1="39" y1="24" x2="44" y2="24"/>
+          <line x1="9.9"  y1="9.9"  x2="13.4" y2="13.4"/>
+          <line x1="34.6" y1="34.6" x2="38.1" y2="38.1"/>
+          <line x1="38.1" y1="9.9"  x2="34.6" y2="13.4"/>
+          <line x1="13.4" y1="34.6" x2="9.9"  y2="38.1"/>
+        </g>
+      </svg>
+      <div>
+        <div class="bkyn">KYN Protocol</div>
+        <div class="blux">KYN Lux</div>
+      </div>
+    </div>
+    <div class="hdr-sub">Sun intelligence · Evidence-based light tracking</div>
+  </header>
+
+  <!-- NAV TABS -->
+  <nav class="tabs" role="tablist" aria-label="Main navigation">
+    <button class="tab active" role="tab" onclick="goTab('profile',this)">Profile</button>
+    <button class="tab" role="tab" onclick="goTab('session',this)">Session</button>
+    <button class="tab" role="tab" onclick="goTab('targets',this)">Targets</button>
+    <button class="tab" role="tab" onclick="goTab('circadian',this)">Circadian</button>
+    <button class="tab" role="tab" onclick="goTab('history',this)">History</button>
+    <button class="tab" role="tab" onclick="goTab('science',this)">Science</button>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════ PROFILE ═══════════ -->
+    <section class="page active" id="tab-profile" role="tabpanel">
+      <div class="slbl top">Your biology</div>
+      <p class="intro">KYN Lux personalizes your daily targets for Vitamin D, Nitric Oxide, and Serotonin based on your biological profile. Set it once — targets update automatically.</p>
+
+      <div class="two">
+        <div class="fld">
+          <label for="p-age">Age</label>
+          <input type="number" id="p-age" value="35" min="1" max="100" onchange="saveProfile()">
+        </div>
+        <div class="fld">
+          <label for="p-sex">Biological sex</label>
+          <select id="p-sex" onchange="saveProfile()">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fld">
+        <label for="p-goal">Primary health goal</label>
+        <select id="p-goal" onchange="saveProfile()">
+          <option value="general">General wellness</option>
+          <option value="depression">Mood / depression support</option>
+          <option value="cardio">Cardiovascular health</option>
+          <option value="bone">Bone density / osteoporosis prevention</option>
+          <option value="immune">Immune optimization</option>
+          <option value="athletic">Athletic performance</option>
+        </select>
+      </div>
+
+      <div class="fld">
+        <label for="p-deficient">Vitamin D status</label>
+        <select id="p-deficient" onchange="saveProfile()">
+          <option value="no">Normal / Unknown</option>
+          <option value="low">Low-normal — 20–30 ng/mL</option>
+          <option value="yes">Deficient — below 20 ng/mL</option>
+        </select>
+      </div>
+
+      <div class="slbl">Skin type</div>
+      <div class="skin-grid" id="profile-skin-grid">
+        <div class="skin-card active" onclick="setProfileSkin(this,1)">
+          <div class="sk-dot" style="background:#FDEBD0"></div>
+          <div class="sk-name">Type I — Very Fair</div>
+          <div class="sk-desc">Burns immediately, never tans. Freckles, light eyes.</div>
+        </div>
+        <div class="skin-card" onclick="setProfileSkin(this,2)">
+          <div class="sk-dot" style="background:#F5CBA7"></div>
+          <div class="sk-name">Type II — Fair</div>
+          <div class="sk-desc">Burns easily, tans minimally. Very sun-sensitive.</div>
+        </div>
+        <div class="skin-card" onclick="setProfileSkin(this,3)">
+          <div class="sk-dot" style="background:#E59866"></div>
+          <div class="sk-name">Type III — Medium</div>
+          <div class="sk-desc">Burns moderately, tans gradually. Most common type.</div>
+        </div>
+        <div class="skin-card" onclick="setProfileSkin(this,4)">
+          <div class="sk-dot" style="background:#C0813E"></div>
+          <div class="sk-name">Type IV — Olive</div>
+          <div class="sk-desc">Rarely burns, tans easily. Mediterranean / Latin heritage.</div>
+        </div>
+        <div class="skin-card" onclick="setProfileSkin(this,5)">
+          <div class="sk-dot" style="background:#7B4F2E"></div>
+          <div class="sk-name">Type V — Brown</div>
+          <div class="sk-desc">Rarely burns, tans very easily. South Asian / Middle Eastern.</div>
+        </div>
+        <div class="skin-card" onclick="setProfileSkin(this,6)">
+          <div class="sk-dot" style="background:#3B2314"></div>
+          <div class="sk-name">Type VI — Deep</div>
+          <div class="sk-desc">Never burns, always tans. Deeply pigmented skin.</div>
+        </div>
+      </div>
+
+      <div class="slbl">Your computed targets</div>
+      <div id="computed-targets-preview"></div>
+
+      <button class="cta" onclick="saveProfile();goTabDirect('targets')">Save Profile & View Targets →</button>
+    </section>
+
+    <!-- ═══════════ SESSION ═══════════ -->
+    <section class="page" id="tab-session" role="tabpanel">
+      <div class="loc-strip" id="loc-strip">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="8" cy="7" r="2.5" stroke="#185FA5" stroke-width="1.5"/>
+          <path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="#185FA5" stroke-width="1.5" fill="none"/>
+        </svg>
+        <div style="flex:1">
+          <div class="loc-txt" id="loc-txt">Enable location for UV calibration</div>
+          <div class="loc-sub" id="loc-sub">Calculates solar angle for your coordinates</div>
+        </div>
+        <button onclick="getLocation()" id="loc-btn" class="loc-enable-btn">Enable</button>
+      </div>
+
+      <div class="two">
+        <div class="fld">
+          <label for="start-time">Start time</label>
+          <input type="time" id="start-time" value="12:00">
+        </div>
+        <div class="fld">
+          <label for="duration">Duration (min)</label>
+          <input type="number" id="duration" value="20" min="1" max="240">
+        </div>
+      </div>
+
+      <div class="fld">
+        <label for="exposure">Body exposure</label>
+        <select id="exposure">
+          <option value="1.0">Full body — swimwear</option>
+          <option value="0.65" selected>Shorts & t-shirt</option>
+          <option value="0.4">Shirtless / shorts only</option>
+          <option value="0.25">Face & arms only</option>
+          <option value="0.12">Mostly covered</option>
+        </select>
+      </div>
+
+      <div class="slbl">SPF protection</div>
+      <div class="pill-row" id="spf-pills" role="group" aria-label="SPF level">
+        <button class="pill active" onclick="setSpf(this,0)">No SPF</button>
+        <button class="pill" onclick="setSpf(this,15)">SPF 15</button>
+        <button class="pill" onclick="setSpf(this,30)">SPF 30</button>
+        <button class="pill" onclick="setSpf(this,50)">SPF 50</button>
+        <button class="pill" onclick="setSpf(this,100)">SPF 100</button>
+      </div>
+
+      <div class="slbl">Boosters</div>
+      <div class="tog-row">
+        <div>
+          <div class="tog-info">Active movement <span class="tog-boost">+12% Vit D</span></div>
+          <div class="tog-sub">Walking, jogging, outdoor sport</div>
+        </div>
+        <label class="tsw" aria-label="Active movement toggle">
+          <input type="checkbox" id="tog-move">
+          <span class="sldr"></span>
+        </label>
+      </div>
+      <div class="tog-row">
+        <div>
+          <div class="tog-info">Healthy fat meal — 2hr prior <span class="tog-boost">+20%</span></div>
+          <div class="tog-sub">Avocado, nuts, olive oil, fatty fish</div>
+        </div>
+        <label class="tsw" aria-label="Fat meal toggle">
+          <input type="checkbox" id="tog-fat">
+          <span class="sldr"></span>
+        </label>
+      </div>
+      <div class="tog-row">
+        <div>
+          <div class="tog-info">Reflective surface <span class="tog-boost">+15% UV</span></div>
+          <div class="tog-sub">Water, sand, or snow nearby</div>
+        </div>
+        <label class="tsw" aria-label="Reflective surface toggle">
+          <input type="checkbox" id="tog-reflect">
+          <span class="sldr"></span>
+        </label>
+      </div>
+
+      <div class="fld" style="margin-top:8px">
+        <label for="cloud">Cloud cover</label>
+        <select id="cloud">
+          <option value="1.0">Clear sky</option>
+          <option value="0.75" selected>Partly cloudy</option>
+          <option value="0.5">Mostly cloudy</option>
+          <option value="0.25">Overcast</option>
+        </select>
+      </div>
+
+      <button class="cta" onclick="startSession()">☀ Start Session</button>
+    </section>
+
+    <!-- ═══════════ TARGETS ═══════════ -->
+    <section class="page" id="tab-targets" role="tabpanel">
+      <div class="target-hero">
+        <div class="th-row">
+          <div class="th-title">Daily Targets</div>
+          <div class="th-date" id="target-date">Today</div>
+        </div>
+        <div class="nutrient-target">
+          <div class="nt-row">
+            <span class="nt-name vd">Vitamin D</span>
+            <div class="nt-vals">
+              <div class="nt-current vd" id="t-vd-curr">0 IU</div>
+              <div class="nt-target" id="t-vd-goal">of 8,800 IU</div>
+            </div>
+          </div>
+          <div class="nt-bar-bg"><div class="nt-bar-fill vd" id="t-vd-bar" style="width:0%"></div></div>
+        </div>
+        <div class="nutrient-target">
+          <div class="nt-row">
+            <span class="nt-name no">Nitric Oxide</span>
+            <div class="nt-vals">
+              <div class="nt-current no" id="t-no-curr">0 μmol</div>
+              <div class="nt-target" id="t-no-goal">of 18 μmol</div>
+            </div>
+          </div>
+          <div class="nt-bar-bg"><div class="nt-bar-fill no" id="t-no-bar" style="width:0%"></div></div>
+        </div>
+        <div class="nutrient-target">
+          <div class="nt-row">
+            <span class="nt-name se">Serotonin</span>
+            <div class="nt-vals">
+              <div class="nt-current se" id="t-se-curr">0%</div>
+              <div class="nt-target" id="t-se-goal">of 80% lift</div>
+            </div>
+          </div>
+          <div class="nt-bar-bg"><div class="nt-bar-fill se" id="t-se-bar" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="slbl">Your personalized baseline</div>
+      <div id="baseline-cards"></div>
+
+      <div class="slbl">How targets are calculated</div>
+      <div class="sci-card">
+        <h3>Vitamin D — 8,800 IU target</h3>
+        <p>Anchored to meta-analysis of vitamin D sufficiency research. Adjusted for skin type (melanin blocks UVB), age (skin thins ~1%/yr after 40), deficiency status, and health goal.</p>
+      </div>
+      <div class="sci-card">
+        <h3>Nitric Oxide — cardiovascular threshold</h3>
+        <p>≥20 J/cm² UVA (~30 min midday) is the research-backed minimum for measurable cardiovascular benefit. Scales with age — NOS enzyme efficiency declines significantly after 60, so older adults require proportionally more UVA stimulus.</p>
+      </div>
+      <div class="sci-card">
+        <h3>Serotonin — mood sufficiency %</h3>
+        <p>Brain serotonin rises directly with bright light duration (Lancet, 2002). Target is % of maximum achievable daily lift. Female baseline serotonin synthesis is ~52% lower than male, making women more sensitive to light deficiency — adjusted accordingly.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════ CIRCADIAN ═══════════ -->
+    <section class="page" id="tab-circadian" role="tabpanel">
+      <p class="intro">Three critical light windows each day. Enable each one and set your times — KYN Lux will alert you before each window.</p>
+
+      <!-- MORNING -->
+      <div class="circ-card circ-morning">
+        <div class="circ-head" onclick="toggleCirc('morning')">
+          <div class="circ-icon">🌅</div>
+          <div style="flex:1">
+            <div class="circ-title">Morning Light</div>
+            <div class="circ-sub">Cortisol awakening response · Clock-setting · Melatonin suppression</div>
+          </div>
+          <label class="tsw" aria-label="Morning light reminder">
+            <input type="checkbox" id="tog-morning" onchange="saveCirc()">
+            <span class="sldr"></span>
+          </label>
+        </div>
+        <div class="circ-body" id="morning-body">
+          <p class="circ-why">Bright light within 30–60 min of waking boosts your cortisol-awakening response by 35–50%, sets your SCN clock for the full day, and directly drives serotonin synthesis. Aim for 5–10 min on clear days, 15–20 min overcast.</p>
+          <div class="slbl">Target times</div>
+          <div class="circ-time-row">
+            <label>Wake time</label>
+            <input type="time" id="wake-time" value="06:30" oninput="saveCirc()">
+          </div>
+          <div class="circ-time-row">
+            <label>Outside by</label>
+            <input type="time" id="morning-target" value="07:00" oninput="saveCirc()">
+          </div>
+          <div class="slbl">Notify me before</div>
+          <div class="remind-pills" id="morning-remind">
+            <button class="remind-pill" onclick="setRemind('morning',5,this)">5 min</button>
+            <button class="remind-pill active" onclick="setRemind('morning',10,this)">10 min</button>
+            <button class="remind-pill" onclick="setRemind('morning',15,this)">15 min</button>
+            <button class="remind-pill" onclick="setRemind('morning',20,this)">20 min</button>
+            <button class="remind-pill" onclick="setRemind('morning',30,this)">30 min</button>
+            <button class="remind-pill" onclick="setRemind('morning',45,this)">45 min</button>
+            <button class="remind-pill" onclick="setRemind('morning',60,this)">60 min</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MIDDAY -->
+      <div class="circ-card circ-midday">
+        <div class="circ-head" onclick="toggleCirc('midday')">
+          <div class="circ-icon">☀️</div>
+          <div style="flex:1">
+            <div class="circ-title">Midday Anchor</div>
+            <div class="circ-sub">Peak Vit D + NO · Second circadian anchor · Testosterone & mood boost</div>
+          </div>
+          <label class="tsw" aria-label="Midday anchor reminder">
+            <input type="checkbox" id="tog-midday" onchange="saveCirc()">
+            <span class="sldr"></span>
+          </label>
+        </div>
+        <div class="circ-body" id="midday-body">
+          <p class="circ-why">Your peak UVB window for vitamin D and UVA window for nitric oxide. Also acts as a second circadian anchor point for your SCN clock. 20–30 min of skin exposure to midday sun has been shown to increase testosterone, estrogen, and mood in both sexes.</p>
+          <div class="slbl">Target time</div>
+          <div class="circ-time-row">
+            <label>Target time</label>
+            <input type="time" id="midday-target" value="12:00" oninput="saveCirc()">
+          </div>
+          <div class="slbl">Notify me before</div>
+          <div class="remind-pills" id="midday-remind">
+            <button class="remind-pill" onclick="setRemind('midday',5,this)">5 min</button>
+            <button class="remind-pill" onclick="setRemind('midday',10,this)">10 min</button>
+            <button class="remind-pill active" onclick="setRemind('midday',15,this)">15 min</button>
+            <button class="remind-pill" onclick="setRemind('midday',20,this)">20 min</button>
+            <button class="remind-pill" onclick="setRemind('midday',30,this)">30 min</button>
+            <button class="remind-pill" onclick="setRemind('midday',45,this)">45 min</button>
+            <button class="remind-pill" onclick="setRemind('midday',60,this)">60 min</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUNSET -->
+      <div class="circ-card circ-sunset">
+        <div class="circ-head" onclick="toggleCirc('sunset')">
+          <div class="circ-icon">🌇</div>
+          <div style="flex:1">
+            <div class="circ-title">Sunset Wind-Down</div>
+            <div class="circ-sub">DLMO — Dim Light Melatonin Onset · Tells your body night is coming</div>
+          </div>
+          <label class="tsw" aria-label="Sunset wind-down reminder">
+            <input type="checkbox" id="tog-sunset" onchange="saveCirc()">
+            <span class="sldr"></span>
+          </label>
+        </div>
+        <div class="circ-body" id="sunset-body">
+          <p class="circ-why">Low-angle orange and red wavelengths at sunset trigger your Dim Light Melatonin Onset (DLMO) — the body's natural off-switch. Even 5–10 minutes counteracts the circadian disruption from evening screen light and helps you fall asleep faster.</p>
+          <div class="slbl">Target times</div>
+          <div class="circ-time-row">
+            <label>Sunset time</label>
+            <input type="time" id="sunset-time" value="19:30" oninput="saveCirc()">
+          </div>
+          <div class="circ-time-row">
+            <label>Outside by</label>
+            <input type="time" id="sunset-target" value="19:15" oninput="saveCirc()">
+          </div>
+          <div class="slbl">Notify me before</div>
+          <div class="remind-pills" id="sunset-remind">
+            <button class="remind-pill" onclick="setRemind('sunset',5,this)">5 min</button>
+            <button class="remind-pill" onclick="setRemind('sunset',10,this)">10 min</button>
+            <button class="remind-pill" onclick="setRemind('sunset',15,this)">15 min</button>
+            <button class="remind-pill active" onclick="setRemind('sunset',20,this)">20 min</button>
+            <button class="remind-pill" onclick="setRemind('sunset',30,this)">30 min</button>
+            <button class="remind-pill" onclick="setRemind('sunset',45,this)">45 min</button>
+            <button class="remind-pill" onclick="setRemind('sunset',60,this)">60 min</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="iphone-note">
+        <svg width="13" height="16" viewBox="0 0 14 17" fill="none" aria-hidden="true">
+          <rect x="1" y="1" width="12" height="15" rx="2.5" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+          <line x1="5" y1="1" x2="5" y2="2.5" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+          <line x1="9" y1="1" x2="9" y2="2.5" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+        </svg>
+        <div class="iphone-note-text">
+          <strong>iPhone:</strong> Open KYN Lux in Safari → tap Share → "Add to Home Screen" to install as an app. For push notifications, use iOS Reminders to set recurring daily alerts at your target times until the native app launches.
+        </div>
+      </div>
+
+      <div class="circ-all-note">
+        <div class="can-title">☀ All 3 windows daily</div>
+        <div class="can-body">Research shows hitting all three light windows is the single most powerful non-pharmacological tool for sleep quality, mood, hormone balance, and metabolic health.</div>
+      </div>
+    </section>
+
+    <!-- ═══════════ HISTORY ═══════════ -->
+    <section class="page" id="tab-history" role="tabpanel">
+      <div class="slbl top">Session history</div>
+      <div id="history-list">
+        <div class="empty">
+          <div class="empty-sun">☀</div>
+          <p>No sessions yet.</p>
+          <p class="empty-sub">Start your first session to begin tracking.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ SCIENCE ═══════════ -->
+    <section class="page" id="tab-science" role="tabpanel">
+      <div class="sci-badge">KYN Lux · Evidence Base</div>
+
+      <div class="sci-card">
+        <h3>Vitamin D synthesis <span class="ref-tag">UVB</span></h3>
+        <p>UVB converts 7-dehydrocholesterol in skin → previtamin D3 → cholecalciferol (D3). Peak production occurs at solar noon when elevation exceeds 45°. Melanin, SPF, cloud cover, and age all modulate output. Meta-analysis suggests 8,800 IU as the optimal daily production target from sun exposure for most adults. Skin type VI requires up to 6× longer exposure than Type I for equivalent IU output.</p>
+      </div>
+      <div class="sci-card">
+        <h3>Nitric oxide release <span class="ref-tag">UVA</span></h3>
+        <p>UVA photons photolyze nitrite stores in the skin, releasing nitric oxide systemically. NO vasodilates arteries, lowers blood pressure, and improves endothelial function — independent of vitamin D. Research shows ≥20 J/cm² UVA (~30 min midday sun) is required for measurable cardiovascular benefit. NO bioavailability declines with age as nitric oxide synthase (NOS) enzyme efficiency falls — making sun exposure especially important for adults 50+.</p>
+      </div>
+      <div class="sci-card">
+        <h3>Serotonin production <span class="ref-tag">Retina</span></h3>
+        <p>Bright light entering the eyes via the retinoraphe tract directly stimulates the raphe nucleus to upregulate serotonin synthesis. Lancet (2002): brain serotonin production is directly proportional to prevailing bright sunlight duration (r=0.294). Serotonin is also the upstream precursor to melatonin — making morning light the root driver of both mood and sleep quality.</p>
+      </div>
+      <div class="sci-card">
+        <h3>The 3 circadian windows</h3>
+        <p><strong>Morning:</strong> Bright light within 60 min of waking amplifies cortisol-awakening response by 35–50%, suppresses residual melatonin, and entrains the SCN master clock for the entire day.<br><br><strong>Midday:</strong> Peak UVA/UVB window. Acts as a second circadian anchor, reinforcing the SCN signal and buffering against evening artificial light disruption. Also drives testosterone and nitric oxide synthesis.<br><br><strong>Sunset (DLMO):</strong> Low-angle orange/red wavelengths trigger the Dim Light Melatonin Onset — the body's natural sleep preparation signal. Skipping this window is a primary driver of delayed sleep phase disorder.</p>
+      </div>
+      <div class="sci-card">
+        <h3>Age & biological adjustments</h3>
+        <p><strong>Vitamin D:</strong> Skin thickness declines ~1%/yr after 40, reducing UVB absorption. Kidney 1-alpha-hydroxylase conversion efficiency also falls. Targets increase 15–40% for ages 50+.<br><br><strong>Nitric Oxide:</strong> NOS enzyme activity declines progressively from age 40. Adults 60+ may produce 40% less NO per unit UVA than young adults. Target increases proportionally.<br><br><strong>Serotonin:</strong> Female serotonin synthesis rates are ~52% lower than males at baseline, making women more sensitive to light deficiency. Post-menopausal women show further reduced light sensitivity.</p>
+      </div>
+      <div class="sci-card">
+        <h3>Movement + fat-soluble amplifiers</h3>
+        <p>Exercise increases peripheral blood flow to dermal layers, enhancing UVB absorption efficiency (+12%). Healthy fats consumed within 2 hours improve intestinal vitamin D absorption (+20%) since D3 is fat-soluble and requires lipid carriers for uptake. Reflective surfaces (water, snow, sand) increase incident UVA/UVB by 10–25%.</p>
+      </div>
+      <div class="sci-footer">KYN LUX · PART OF THE KYN PROTOCOL</div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════ LIVE SESSION OVERLAY ═══════════ -->
+  <div id="sess-screen" role="dialog" aria-modal="true" aria-label="Live session" hidden>
+    <div class="sess-inner">
+      <button class="sess-close" onclick="stopSession()" aria-label="End session">✕</button>
+      <div class="sess-brand">KYN Lux · Live Session</div>
+
+      <div class="sun-wrap" aria-hidden="true">
+        <svg class="sun-rays-el" viewBox="0 0 110 110" width="110" height="110">
+          <g transform="translate(55,55)">
+            <line x1="0" y1="-50" x2="0" y2="-40" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" opacity=".65"/>
+            <line x1="0" y1="-50" x2="0" y2="-40" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" opacity=".65" transform="rotate(45)"/>
+            <line x1="0" y1="-50" x2="0" y2="-40" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" opacity=".65" transform="rotate(90)"/>
+            <line x1="0" y1="-50" x2="0" y2="-40" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" opacity=".65" transform="rotate(135)"/>
+            <line x1="0" y1="-50" x2="0" y2="-40" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" opacity=".65" transform="rotate(180)"/>
+            <line x1="0" y1="-50" x2="0" y2="-40" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" opacity=".65" transform="rotate(225)"/>
+            <line x1="0" y1="-50" x2="0" y2="-40" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" opacity=".65" transform="rotate(270)"/>
+            <line x1="0" y1="-50" x2="0" y2="-40" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" opacity=".65" transform="rotate(315)"/>
+          </g>
+        </svg>
+        <div class="sun-core"></div>
+      </div>
+
+      <div class="timer-val" id="timer-val" aria-live="polite">00:00</div>
+      <div class="timer-lbl" id="timer-lbl">Session in progress</div>
+
+      <div class="ring-wrap" aria-hidden="true">
+        <svg class="ring-svg" width="84" height="84" viewBox="0 0 84 84">
+          <circle class="ring-bg" cx="42" cy="42" r="36"/>
+          <circle class="ring-fill" id="ring-fill" cx="42" cy="42" r="36"
+            stroke-dasharray="226.2" stroke-dashoffset="226.2"/>
+        </svg>
+        <div class="ring-center">
+          <div class="ring-pct" id="ring-pct">0%</div>
+          <div class="ring-sub">of goal</div>
+        </div>
+      </div>
+
+      <div class="nut-grid">
+        <div class="nut-card vd nut-wide">
+          <div>
+            <div class="n-lbl">Vitamin D</div>
+            <div class="n-val" id="lv-vd">0</div>
+            <div class="n-unit">IU produced this session</div>
+            <div class="n-rate" id="lv-vd-rate">+0 IU / min</div>
+          </div>
+          <div>
+            <div class="n-proj-lbl">Projected</div>
+            <div class="n-proj" id="lv-vd-proj">0 IU</div>
+          </div>
+        </div>
+        <div class="nut-card no">
+          <div class="n-lbl">Nitric Oxide</div>
+          <div class="n-val" id="lv-no">0</div>
+          <div class="n-unit">μmol released</div>
+          <div class="n-rate" id="lv-no-rate">+0 / min</div>
+        </div>
+        <div class="nut-card se">
+          <div class="n-lbl">Serotonin</div>
+          <div class="n-val" id="lv-se">0%</div>
+          <div class="n-unit">mood lift</div>
+          <div class="n-rate" id="lv-se-rate">building...</div>
+        </div>
+      </div>
+
+      <div class="sess-targets">
+        <div class="st-row">
+          <div class="st-hd"><span class="st-name vd">Vit D → daily target</span><span class="st-val" id="st-vd-txt">0%</span></div>
+          <div class="st-bg"><div class="st-fill vd" id="st-vd" style="width:0%"></div></div>
+        </div>
+        <div class="st-row">
+          <div class="st-hd"><span class="st-name no">Nitric Oxide → target</span><span class="st-val" id="st-no-txt">0%</span></div>
+          <div class="st-bg"><div class="st-fill no" id="st-no" style="width:0%"></div></div>
+        </div>
+        <div class="st-row">
+          <div class="st-hd"><span class="st-name se">Serotonin → target</span><span class="st-val" id="st-se-txt">0%</span></div>
+          <div class="st-bg"><div class="st-fill se" id="st-se" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="boost-strip" id="boost-strip"></div>
+      <button class="stop-btn" onclick="stopSession()">End Session & Save</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
